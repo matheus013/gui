@@ -5,6 +5,13 @@
  */
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author matheus
@@ -16,6 +23,7 @@ public class guiMain extends javax.swing.JFrame {
      */
     public guiMain() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -26,25 +34,21 @@ public class guiMain extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        jButtonNovoProfessor = new javax.swing.JButton();
+        jButtonListProfessor = new javax.swing.JButton();
+        jButtonHorario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jButtonUltimosHorarios = new javax.swing.JButton();
+        jButtonNovaMateria = new javax.swing.JButton();
+        jButtonListMateria = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        JDesktopMDI = new javax.swing.JDesktopPane();
 
         jMenu3.setText("jMenu3");
 
@@ -53,41 +57,52 @@ public class guiMain extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(0, 0));
 
-        jButton1.setText("Novo Professor");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonNovoProfessor.setText("Novo Professor");
+        jButtonNovoProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonNovoProfessorActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Lista de Professores");
+        jButtonListProfessor.setText("Lista de Professores");
+        jButtonListProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListProfessorActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Gerar Horario");
-
-        jInternalFrame1.setVisible(true);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${professores.java}"), jInternalFrame1, org.jdesktop.beansbinding.BeanProperty.create("background"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jButtonHorario.setText("Gerar Horario");
+        jButtonHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHorarioActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ÍCONE  © 2015");
 
-        jButton6.setText("Horarios Antigos");
+        jButtonUltimosHorarios.setText("Horarios Antigos");
+        jButtonUltimosHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUltimosHorariosActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Nova Materia");
+        jButtonNovaMateria.setText("Nova Materia");
+        jButtonNovaMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovaMateriaActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("Lista de Materias");
+        jButtonListMateria.setText("Lista de Materias");
+        jButtonListMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListMateriaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Por Nome do Programa");
 
@@ -108,14 +123,6 @@ public class guiMain extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,16 +132,16 @@ public class guiMain extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
-                            .addComponent(jButton7)
-                            .addComponent(jButton8)
-                            .addComponent(jButton6))
-                        .addGap(18, 18, 18)
-                        .addComponent(jInternalFrame1)))
+                            .addComponent(jButtonListProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonNovoProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonNovaMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonListMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonUltimosHorarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(JDesktopMDI)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -144,32 +151,85 @@ public class guiMain extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jInternalFrame1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jButtonNovoProfessor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonListProfessor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7)
+                        .addComponent(jButtonNovaMateria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8)
+                        .addComponent(jButtonListMateria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonHorario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
+                        .addComponent(jButtonUltimosHorarios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addComponent(JDesktopMDI))
                 .addContainerGap())
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonNovoProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoProfessorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        theButton();
+        jButtonNovoProfessor.setEnabled(false);
+        JFrameTeste frame = null;
+        try {
+            frame = new JFrameTeste();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(guiMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        frame.setVisible(true);
+        JDesktopMDI.add(frame);
+        
+
+    }//GEN-LAST:event_jButtonNovoProfessorActionPerformed
+
+    private void jButtonListProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListProfessorActionPerformed
+        // TODO add your handling code here:
+        
+        theButton();
+        jButtonListProfessor.setEnabled(false);
+    }//GEN-LAST:event_jButtonListProfessorActionPerformed
+
+    private void jButtonNovaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaMateriaActionPerformed
+        // TODO add your handling code here:
+        
+        theButton();
+        jButtonNovaMateria.setEnabled(false);
+    }//GEN-LAST:event_jButtonNovaMateriaActionPerformed
+
+    private void jButtonListMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListMateriaActionPerformed
+        // TODO add your handling code here:
+        theButton();
+        jButtonListMateria.setEnabled(false);
+    }//GEN-LAST:event_jButtonListMateriaActionPerformed
+
+    private void jButtonHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHorarioActionPerformed
+        // TODO add your handling code here:
+        theButton();
+        jButtonHorario.setEnabled(false);
+    }//GEN-LAST:event_jButtonHorarioActionPerformed
+
+    private void jButtonUltimosHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimosHorariosActionPerformed
+        // TODO add your handling code here:
+        theButton();
+        jButtonUltimosHorarios.setEnabled(false);
+    }//GEN-LAST:event_jButtonUltimosHorariosActionPerformed
+    private void theButton() {
+        JDesktopMDI.removeAll();        
+        JDesktopMDI.repaint();
+        jButtonNovoProfessor.setEnabled(true);
+        jButtonListProfessor.setEnabled(true);
+        jButtonHorario.setEnabled(true);
+        jButtonUltimosHorarios.setEnabled(true);
+        jButtonNovaMateria.setEnabled(true);
+        jButtonListMateria.setEnabled(true);
+
+    }
 
     /**
      * @param args the command line arguments
@@ -207,23 +267,19 @@ public class guiMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JDesktopPane JDesktopMDI;
+    private javax.swing.JButton jButtonHorario;
+    private javax.swing.JButton jButtonListMateria;
+    private javax.swing.JButton jButtonListProfessor;
+    private javax.swing.JButton jButtonNovaMateria;
+    private javax.swing.JButton jButtonNovoProfessor;
+    private javax.swing.JButton jButtonUltimosHorarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jTree1;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
