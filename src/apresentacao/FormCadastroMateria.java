@@ -5,7 +5,10 @@
  */
 package apresentacao;
 
-import banco.BdMateria;
+import banco.DAO.BdMateriaDAO;
+import banco.DAO.InterfaceDAO;
+import banco.FactoryMetody.FactoryBdMateria;
+import banco.FactoryMetody.FactoryMetody;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -28,7 +31,7 @@ public class FormCadastroMateria extends javax.swing.JInternalFrame {
         this.setVisible(true);
     }
     
-    public void limparErro()
+    private void limparErro()
     {
         this.jLabelHorasAulasErro.setVisible(false);
         this.jLabelIdErro.setVisible(false);
@@ -302,8 +305,9 @@ public class FormCadastroMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Materia objMateriaSelecionado = null;
         String id = jTextFieldBuscaId.getText();
-        BdMateria objBdMateria= new BdMateria();
-        ArrayList<Materia> listMateria = objBdMateria.SelecionarListMateria();
+        FactoryMetody BdMateria = new FactoryBdMateria();
+        InterfaceDAO objBdMateria = BdMateria.criar_DAO_BD();
+        ArrayList<Materia> listMateria = objBdMateria.listar();
         for(Materia objMateria : listMateria)
         {
             if(objMateria.getId()==Integer.parseInt(id))
@@ -317,6 +321,7 @@ public class FormCadastroMateria extends javax.swing.JInternalFrame {
             jTextId.setText(new Integer(objMateriaSelecionado.getId()).toString());
             jTextId.setEditable(false);
             jTextAreaDescricao.setText(objMateriaSelecionado.getDescricao());
+            jTextHorasAula.setText(new Integer(objMateriaSelecionado.getCargahoraria()).toString());
         }
         else
         {
@@ -328,10 +333,10 @@ public class FormCadastroMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldBuscaIdActionPerformed
 
-        public void preencherTabela()
+        private void preencherTabela()
     {
-        BdMateria obj_BdMateria = new BdMateria();
-        ArrayList<Materia> list_Materia= obj_BdMateria.SelecionarListMateria();
+        BdMateriaDAO obj_BdMateria = new BdMateriaDAO();
+        ArrayList<Materia> list_Materia= obj_BdMateria.listar();
         
         DefaultTableModel Model = new DefaultTableModel(){  
         @Override  

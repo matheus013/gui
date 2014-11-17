@@ -252,26 +252,7 @@ public class FormSelectHorario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Professor objProfessorSelecionado = null;
         String cpf = jTextFieldBuscaCPF.getText();
-        BdProfessor objBdProfessor= new BdProfessor();
-        ArrayList<Professor> listProfessor = objBdProfessor.SelecionarListProfessor();
-        for(Professor objProfessor : listProfessor)
-        {
-            if(objProfessor.getCpf().equals(cpf))
-            {
-                objProfessorSelecionado=objProfessor;
-            }
-        }
-        if(objProfessorSelecionado!=null)
-        {
-            jTextNome.setText(objProfessorSelecionado.getNome());
-            jTextCpf.setText(objProfessorSelecionado.getCpf());
-            jTextCpf.setEditable(false);
-            jTextEmail.setText(objProfessorSelecionado.getEmail());
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Professor não encontrado!!\nError!");
-        }
+        
     }//GEN-LAST:event_jButtonBuscarCpfActionPerformed
 
     private void jTextFieldBuscaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscaCPFActionPerformed

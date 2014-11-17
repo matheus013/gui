@@ -5,12 +5,18 @@
  */
 package gui;
 
+import Ative.Ativador;
 import apresentacao.FormCadastroMateria;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import apresentacao.FormCadastroProfessor;
 import apresentacao.FormSelectHorario;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -21,9 +27,45 @@ public class mainGui extends javax.swing.JFrame {
     /**
      * Creates new form mainGui
      */
-    public mainGui() {
+    public mainGui() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        BufferedReader read;
+        String code = "";
+        File file = new File("ative.icone");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        if (file.exists()) {
+            try {
+                read = new BufferedReader(new FileReader("ative.icone"));
+                while (read.ready()) {
+                    code = read.readLine();
+                }
+                System.out.println("Codigo" + code);
+                read.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (code.equals("")) {
+                Ativador noAtived;
+                noAtived = new Ativador();
+                offButton();
+                noAtived.setVisible(true);
+                JDesktopMDI.add(noAtived);
+                try {
+                    noAtived.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+
+            }
+
+        }
     }
 
     /**
@@ -86,7 +128,7 @@ public class mainGui extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(223, 223, 223)
                 .addComponent(jLabel2)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(490, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +182,7 @@ public class mainGui extends javax.swing.JFrame {
                         .addComponent(jButtonHorario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonUltimosHorarios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addComponent(JDesktopMDI))
                 .addContainerGap())
@@ -158,19 +200,40 @@ public class mainGui extends javax.swing.JFrame {
         jButtonSelectHoras.setEnabled(true);
 
     }
+
+    private void noFrame() {
+        guiNull vazio = null;
+        theButton();
+        vazio = new guiNull();
+        vazio.setVisible(true);
+        JDesktopMDI.add(vazio);
+        try {
+            vazio.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void offButton() {
+        jButtonNovoProfessor.setEnabled(false);
+        jButtonHorario.setEnabled(false);
+        jButtonUltimosHorarios.setEnabled(false);
+        jButtonNovaMateria.setEnabled(false);
+        jButtonSelectHoras.setEnabled(false);
+    }
     private void jButtonNovoProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoProfessorActionPerformed
         // TODO add your handling code here:
         theButton();
         FormCadastroProfessor newProf = null;
         theButton();
-        try{
+        try {
             newProf = new FormCadastroProfessor();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         newProf.setVisible(true);
         JDesktopMDI.add(newProf);
-        try{
+        try {
             newProf.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,20 +245,22 @@ public class mainGui extends javax.swing.JFrame {
     private void jButtonHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHorarioActionPerformed
         // TODO add your handling code here:
         theButton();
+        noFrame();
         jButtonHorario.setEnabled(false);
     }//GEN-LAST:event_jButtonHorarioActionPerformed
 
     private void jButtonUltimosHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimosHorariosActionPerformed
         // TODO add your handling code here:
         theButton();
+        noFrame();
         jButtonUltimosHorarios.setEnabled(false);
     }//GEN-LAST:event_jButtonUltimosHorariosActionPerformed
 
     private void jButtonNovaMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaMateriaActionPerformed
         // TODO add your handling code here:
-        FormCadastroMateria newMateria = null ;
+        FormCadastroMateria newMateria = null;
         theButton();
-        try{
+        try {
             newMateria = new FormCadastroMateria();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,7 +268,7 @@ public class mainGui extends javax.swing.JFrame {
         newMateria.setVisible(true);
         jButtonNovaMateria.setEnabled(false);
         JDesktopMDI.add(newMateria);
-        try{
+        try {
             newMateria.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,7 +283,7 @@ public class mainGui extends javax.swing.JFrame {
         horas.setVisible(true);
         jButtonSelectHoras.setEnabled(false);
         JDesktopMDI.add(horas);
-        try{
+        try {
             horas.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -255,7 +320,11 @@ public class mainGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainGui().setVisible(true);
+                try {
+                    new mainGui().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -271,4 +340,5 @@ public class mainGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
 }

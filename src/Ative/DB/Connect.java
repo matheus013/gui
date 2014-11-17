@@ -1,23 +1,29 @@
-
-package banco;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Ative.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-
-public class Conexao {
-
-    public Connection getConnection() {
+/**
+ *
+ * @author matheus
+ */
+public class Connect {
+     public Connection getConnection() {
         Connection conexao;
         try {
-            String stringConexao = "jdbc:postgresql://localhost:5432/";
-            String nomeBanco = "gerenciador";
-            String usuarioBanco = "postgres";
+            String stringConexao = "jdbc:mysql.hostinger.com.br";
+            String nomeBanco = "u642109495_proxy";
+            String usuarioBanco = "u642109495_proxy";
             String senhaBanco = "matheus23";
 
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.driver");
 
             conexao = DriverManager.getConnection(stringConexao + nomeBanco,
                     usuarioBanco, senhaBanco);

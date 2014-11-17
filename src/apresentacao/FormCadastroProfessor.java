@@ -5,7 +5,7 @@
  */
 package apresentacao;
 
-import banco.BdProfessor;
+import banco.DAO.BdProfessorDAO;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import javafx.scene.control.SelectionMode;
@@ -311,15 +311,9 @@ public class FormCadastroProfessor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Professor objProfessorSelecionado = null;
         String cpf = jTextFieldBuscaCPF.getText();
-        BdProfessor objBdProfessor= new BdProfessor();
-        ArrayList<Professor> listProfessor = objBdProfessor.SelecionarListProfessor();
-        for(Professor objProfessor : listProfessor)
-        {
-            if(objProfessor.getCpf().equals(cpf))
-            {
-                objProfessorSelecionado=objProfessor;
-            }
-        }
+        BdProfessorDAO objBdProfessor= new BdProfessorDAO();
+        ArrayList<Professor> listProfessor = objBdProfessor.listar();
+        objProfessorSelecionado=objBdProfessor.procurar(new Professor(cpf));
         if(objProfessorSelecionado!=null)
         {
             jTextNome.setText(objProfessorSelecionado.getNome());
@@ -396,8 +390,8 @@ public class FormCadastroProfessor extends javax.swing.JInternalFrame {
 
     public void preencherTabela()
     {
-        BdProfessor obj_BdProfessor = new BdProfessor();
-        ArrayList<Professor> list_Professor= obj_BdProfessor.SelecionarListProfessor();
+        BdProfessorDAO obj_BdProfessor = new BdProfessorDAO();
+        ArrayList<Professor> list_Professor= obj_BdProfessor.listar();
         
         DefaultTableModel Model = new DefaultTableModel(){  
         @Override  
