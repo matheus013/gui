@@ -6,6 +6,8 @@
 package gui;
 
 import Ative.Ativador;
+import Ative.DB.CodigoDB;
+import Ative.Proxy.Proxy;
 import apresentacao.FormCadastroMateria;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
@@ -26,45 +28,42 @@ public class mainGui extends javax.swing.JFrame {
 
     /**
      * Creates new form mainGui
+     *
+     * @throws java.io.IOException
      */
     public mainGui() throws IOException {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         BufferedReader read;
         String code = "";
-        File file = new File("ative.icone");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+        File file = new File("ative.txt");
         if (file.exists()) {
             try {
-                read = new BufferedReader(new FileReader("ative.icone"));
+                read = new BufferedReader(new FileReader("ative.txt"));
                 while (read.ready()) {
                     code = read.readLine();
                 }
-                System.out.println("Codigo" + code);
                 read.close();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (code.equals("")) {
-                Ativador noAtived;
-                noAtived = new Ativador();
-                offButton();
-                noAtived.setVisible(true);
-                JDesktopMDI.add(noAtived);
-                try {
-                    noAtived.setMaximum(true);
-                } catch (PropertyVetoException ex) {
-                    Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-
+        }else{
+            file.createNewFile();
+        }
+        if (!isCode(code)) {
+            Ativador noAtived;
+            noAtived = new Ativador();
+            offButton();
+            noAtived.setVisible(true);
+            JDesktopMDI.add(noAtived);
+            try {
+                noAtived.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(mainGui.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
-
         }
     }
 
@@ -86,6 +85,7 @@ public class mainGui extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         JDesktopMDI = new javax.swing.JDesktopPane();
         jButtonSelectHoras = new javax.swing.JButton();
+        jButtonRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +145,13 @@ public class mainGui extends javax.swing.JFrame {
             }
         });
 
+        jButtonRefresh.setText("Verificar Ativação");
+        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,7 +167,8 @@ public class mainGui extends javax.swing.JFrame {
                             .addComponent(jButtonNovaMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonUltimosHorarios, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jButtonSelectHoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonSelectHoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
                         .addComponent(JDesktopMDI)))
                 .addContainerGap())
@@ -182,7 +190,9 @@ public class mainGui extends javax.swing.JFrame {
                         .addComponent(jButtonHorario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonUltimosHorarios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                        .addComponent(jButtonRefresh)
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel1))
                     .addComponent(JDesktopMDI))
                 .addContainerGap())
@@ -199,6 +209,13 @@ public class mainGui extends javax.swing.JFrame {
         jButtonNovaMateria.setEnabled(true);
         jButtonSelectHoras.setEnabled(true);
 
+    }
+
+    private boolean isCode(String str) {
+        Proxy proxy = new Proxy();
+        CodigoDB code = new CodigoDB();
+        //System.out.println("Proxy: "+proxy.proxyTest(str) +"\nValidar: "+ code.exist(str));
+        return proxy.proxyTest(str) && code.exist(proxy.getCode());
     }
 
     private void noFrame() {
@@ -290,6 +307,31 @@ public class mainGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSelectHorasActionPerformed
 
+    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
+        // TODO add your handling code here:
+        BufferedReader read;
+        String code = "";
+        File file = new File("ative.txt");
+        if (file.exists()) {
+            try {
+                read = new BufferedReader(new FileReader("ative.txt"));
+                while (read.ready()) {
+                    code = read.readLine();
+                }
+                read.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(mainGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(isCode(code))
+        {
+            noFrame();
+            theButton();
+        }
+    }//GEN-LAST:event_jButtonRefreshActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -334,6 +376,7 @@ public class mainGui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonHorario;
     private javax.swing.JButton jButtonNovaMateria;
     private javax.swing.JButton jButtonNovoProfessor;
+    private javax.swing.JButton jButtonRefresh;
     private javax.swing.JButton jButtonSelectHoras;
     private javax.swing.JButton jButtonUltimosHorarios;
     private javax.swing.JLabel jLabel1;

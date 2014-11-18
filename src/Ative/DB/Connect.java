@@ -18,18 +18,20 @@ public class Connect {
      public Connection getConnection() {
         Connection conexao;
         try {
-            String stringConexao = "jdbc:mysql.hostinger.com.br";
+            String stringConexao = "jdbc:mysql://sql8.hostinger.com.br/";
             String nomeBanco = "u642109495_proxy";
             String usuarioBanco = "u642109495_proxy";
             String senhaBanco = "matheus23";
 
-            Class.forName("com.mysql.jdbc.driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
-            conexao = DriverManager.getConnection(stringConexao + nomeBanco,
+            conexao = DriverManager.getConnection(stringConexao+nomeBanco,
                     usuarioBanco, senhaBanco);
+            //JOptionPane.showMessageDialog(null, "Banco Online");
 
         } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Verifique sua conexão à internet");
+            //System.out.println(e.getMessage());
             conexao = null;
         }
         

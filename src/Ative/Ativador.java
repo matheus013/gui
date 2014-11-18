@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Ative;
-
+import Ative.DB.CodigoDB;
 import Ative.Proxy.Proxy;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.application.Platform.exit;
 import javax.swing.JOptionPane;
 
 /**
@@ -133,39 +134,32 @@ public class Ativador extends javax.swing.JInternalFrame {
 
     private void jButtonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmActionPerformed
         // TODO add your handling code here:
-        File file = new File("ative.icone");
-        if (!file.exists()) {
-            //System.out.println("Arquivo criado com sucesso!!");
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                //System.out.println("Falha Criação do arquivo");
-                Logger.getLogger(Ativador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            //System.out.println("Arquivo ja existe");
-        }
         //JOptionPane.showMessageDialog(null, "chegou aqui!!");
         Proxy proxy = new Proxy();
         FileWriter fileName = null;
         try {
-            fileName = new FileWriter("ative.icone");
+            fileName = new FileWriter("ative.txt");
         } catch (IOException ex) {
             Logger.getLogger(Ativador.class.getName()).log(Level.SEVERE, null, ex);
         }
         BufferedWriter write = new BufferedWriter(fileName);
-
-        if (proxy.proxyTest(jTextCode.getText())) {
+        CodigoDB verificar =  new CodigoDB();
+        if (proxy.proxyTest(jTextCode.getText()) && verificar.exist(proxy.getCode())) {
             JOptionPane.showMessageDialog(null, "Codigo aceito");
             try {
-                write.write(proxy.getCode());
-                JOptionPane.showMessageDialog(null,"Ativação concluida com sucesso");
+                write.write(proxy.getCode());          
+                JOptionPane.showMessageDialog(null,"Ativação concluida com sucesso, verifique ativação para liberar uso.");
             } catch (IOException ex) {
                 Logger.getLogger(Ativador.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Falha na ativação.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Codigo não foi aceito.");
+        }
+        try {
+            write.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Ativador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonConfirmActionPerformed
 
@@ -176,6 +170,7 @@ public class Ativador extends javax.swing.JInternalFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
+        exit();
     }//GEN-LAST:event_CancelarActionPerformed
 
 
