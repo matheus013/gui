@@ -31,6 +31,7 @@ public class Connect {
 
         } catch (SQLException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Verifique sua conexão à internet");
+	    JOptionPane.showMessageDialog(null, e.getMessage());
             //System.out.println(e.getMessage());
             conexao = null;
         }
